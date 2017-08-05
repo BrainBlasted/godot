@@ -385,7 +385,7 @@ void CSharpLanguage::reload_tool_script(const Ref<Script> &p_script, bool p_soft
 
 	if (mono->is_runtime_initialized()) {
 		GDMonoAssembly *proj_assembly = mono->get_project_assembly();
-		if (FileAccess::get_modified_time(proj_assembly->get_path()) <= proj_assembly->get_modified_time()) {
+		if (proj_assembly && FileAccess::get_modified_time(proj_assembly->get_path()) <= proj_assembly->get_modified_time()) {
 			return;
 		}
 	}
