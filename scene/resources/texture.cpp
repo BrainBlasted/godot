@@ -73,6 +73,7 @@ void Texture::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("draw", "canvas_item", "pos", "modulate", "transpose", "normal_map:Texture"), &Texture::draw, DEFVAL(Color(1, 1, 1)), DEFVAL(false), DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("draw_rect", "canvas_item", "rect", "tile", "modulate", "transpose", "normal_map:Texture"), &Texture::draw_rect, DEFVAL(Color(1, 1, 1)), DEFVAL(false), DEFVAL(Variant()));
 	ClassDB::bind_method(D_METHOD("draw_rect_region", "canvas_item", "rect", "src_rect", "modulate", "transpose", "normal_map:Texture", "clip_uv"), &Texture::draw_rect_region, DEFVAL(Color(1, 1, 1)), DEFVAL(false), DEFVAL(Variant()), DEFVAL(true));
+	ClassDB::bind_method(D_METHOD("get_data:Image", "cube_side"), &ImageTexture::get_data);
 
 	BIND_CONSTANT(FLAG_MIPMAPS);
 	BIND_CONSTANT(FLAG_REPEAT);
@@ -194,6 +195,7 @@ void ImageTexture::create(int p_width, int p_height, Image::Format p_format, uin
 }
 void ImageTexture::create_from_image(const Ref<Image> &p_image, uint32_t p_flags) {
 
+	ERR_FAIL_COND(p_image.is_null());
 	flags = p_flags;
 	w = p_image->get_width();
 	h = p_image->get_height();
@@ -352,7 +354,6 @@ void ImageTexture::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_format"), &ImageTexture::get_format);
 	ClassDB::bind_method(D_METHOD("load", "path"), &ImageTexture::load);
 	ClassDB::bind_method(D_METHOD("set_data", "image:Image"), &ImageTexture::set_data);
-	ClassDB::bind_method(D_METHOD("get_data:Image", "cube_side"), &ImageTexture::get_data);
 	ClassDB::bind_method(D_METHOD("set_storage", "mode"), &ImageTexture::set_storage);
 	ClassDB::bind_method(D_METHOD("get_storage"), &ImageTexture::get_storage);
 	ClassDB::bind_method(D_METHOD("set_lossy_storage_quality", "quality"), &ImageTexture::set_lossy_storage_quality);

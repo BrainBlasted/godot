@@ -105,6 +105,7 @@ enum PropertyUsageFlags {
 	PROPERTY_USAGE_STORE_IF_NULL = 16384,
 	PROPERTY_USAGE_ANIMATE_AS_TRIGGER = 32768,
 	PROPERTY_USAGE_UPDATE_ALL_IF_MODIFIED = 65536,
+	PROPERTY_USAGE_SCRIPT_DEFAULT_VALUE = 1 << 17,
 
 	PROPERTY_USAGE_DEFAULT = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_NETWORK,
 	PROPERTY_USAGE_DEFAULT_INTL = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_NETWORK | PROPERTY_USAGE_INTERNATIONALIZED,
@@ -654,8 +655,8 @@ public:
 	void set_script_and_instance(const RefPtr &p_script, ScriptInstance *p_instance); //some script languages can't control instance creation, so this function eases the process
 
 	void add_user_signal(const MethodInfo &p_signal);
-	void emit_signal(const StringName &p_name, VARIANT_ARG_LIST);
-	void emit_signal(const StringName &p_name, const Variant **p_args, int p_argcount);
+	Error emit_signal(const StringName &p_name, VARIANT_ARG_LIST);
+	Error emit_signal(const StringName &p_name, const Variant **p_args, int p_argcount);
 	void get_signal_list(List<MethodInfo> *p_signals) const;
 	void get_signal_connection_list(const StringName &p_signal, List<Connection> *p_connections) const;
 	void get_all_signal_connections(List<Connection> *p_connections) const;
